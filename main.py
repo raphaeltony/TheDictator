@@ -24,7 +24,8 @@ engine = pyttsx3.init()
 engine.setProperty('rate', FIRST_READ_SPEED)
 
 # Splitting the text into sentences
-text = open("draft.txt", "r").read().replace("\n", " ").split(".")
+text = open("draft.txt", "r", encoding='latin1').read().replace(
+    "\n", " ").split(".")
 
 
 # Taking every sentence and splitting it into words. Then speaking 3 words at a time. 2 letter words (is, in etc) are spoken and not counted as a word.
@@ -35,6 +36,7 @@ for sentence in text:
     count = 0
 
     for i in range(0, len(words)):
+
         phrase.append(words[i])
 
         # Excluding 2 letter words:
@@ -42,6 +44,14 @@ for sentence in text:
             count += 1
 
         # Once 3 words are found(excluding 2-letter words), it is then dictated
+        try:
+            if(words[i+1] == 'and'):
+                dictate(' '.join(phrase))
+                count = 0
+                phrase = []
+        except IndexError:
+            pass
+
         if(count == WORD_READ_RATE):
             dictate(' '.join(phrase))
             count = 0
