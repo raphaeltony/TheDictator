@@ -13,7 +13,7 @@ def dictate(s):
     # print(s)
     engine.say(s)
     engine.runAndWait()
-    time.sleep(1.5)
+    time.sleep(1.2)
     engine.setProperty('rate', SECOND_READ_SPEED)
     engine.say(s)
     engine.runAndWait()
